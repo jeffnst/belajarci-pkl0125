@@ -1,0 +1,28 @@
+tugas tgl. 15-01-2024
+#1. perbaiki form Edit / Update agar form muncul didalam template, lengkap dengan label form dengan bentuk horizontal form.
+#2. buatlah proses CRUD untuk data kelas, yang fieldnya ['id', 'nama_kelas', 'kode_kelas', 'tingkat']
+#3. sederhanakan menu sidebar menjadi ['Dashboard','User Akun', 'Data Kelas','Log Out']
+#4. masukkan proses crud user_akun ke menu User Akun, dan crud data kelas ke menu Data Kelas.
+
+tugas tgl. 16-01-2024
+#1. tambahkan satu kolom sesudah password di table user_akun, dengan nama kolom, 'tipe_akun', yang isinya adalah 'guru' atau 'siswa';
+#2. di halaman Dashboard tambahkan 2 box yang berisi jumlah guru dan jumlah siswa;
+#3. edit halaman user_akun sehingga bisa ditambahkan tipe_akun pada saat create dan update.
+#4. tambahkan validasi pada halaman user akun, sehingga username tidak dapat diinput (tampilkan pesan error) jika username sudah ada ditabel user_akun.
+
+tugas tgl. 19-01-2024
+#1. tambahkan satu menu 'Data Pelajaran', jika di klik, maka akan muncul table data pelajaran yang kolom nya terdiri dari : 'Nama Pelajaran','Jam Pelajaran', 'Nama Kelas', 'Guru Pengajar'. dimana 'Nama Kelas' diambil dari tabel data_kelas, dan 'Nama Guru' diambil dari tabel user_akun yang tipe_akun nya 'guru'.
+#2. Jika guru pada user_akun dihapus, maka data mata_pelajaran guru tersebut juga ikut terhapus.
+#3. jika kelas pada tabel data_kelas dihapus, maka mata_pelajaran pada kelas tersebut juga terhapus.
+
+tugas tgl. 22-01-2024
+#1. tambahkan satu menu 'Data Siswa', jika diklik, maka akan muncul table data siswa yang kolom nya terdiri dari : 'Nama Siswa', 'Kelas', 'Tingkat';
+#2. jika 'data_kelas' dihapus maka seluruh siswa yang berada dikelas itu juga terhapus.
+#3. pada halaman dashboard tampilkan tabel 'Jumlah Siswa Per Kelas' dengan kolom 'Tingkat', 'Kelas', 'Jumlah Siswa', yang data nya terhubung dengan table data_siswa, dimana jika ada siswa yang bertambah atau berkurang, maka table jumlah siswa perkelas akan otomatis terupdate;
+#4. pada table "data_pelajaran" tambahkan field 'jam_mulai' dan 'jam_selesai' dalam format waktu H:i:s , dan tambahkan pada juga 'jam_mulai' dan 'jam_selesai' pada proses CRUD;
+#5. tampilkan table pelajaran_saat_ini pada dahsboard yang kolom nya terdiri dari: 'kelas/tingkat','pelajaran saat ini','nama guru'.  dimana data yang ditampilkan adalah data pelajaran yang sesuai dengan rentang waktu saat ini. 
+#6. tambahkan menu dan CRUD 'Absensi Siswa' , yang menampilkan table Absensi yang terdiri dari kolom, 'nama_siswa', 'tanggal_absensi','status_kehadiran';
+#7. tampilkan data absensi siswa di dashboard yang terdiri dari 'jumlah_hadir', 'jumlah_sakit','jumlah_izin','jumlah_alpa' per hari ini;
+
+tugas tgl 25-01-2024
+#1. Ubah semua crud dan proses tampil data yang ada pada project belajar, menjadi menggunakan Ajax.
