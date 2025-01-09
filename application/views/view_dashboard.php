@@ -37,7 +37,10 @@
 									<td><?= $no++ ?></td>
 									<td><?= $user->username ?></td>
 									<td><?= $user->password ?></td>
-									<td><a href="<?= base_url('dashboard/edit/' . $user->id); ?>" class="btn btn-primary">Edit</a></td>
+									<td>
+										<a href="<?= base_url('dashboard/edit/' . $user->id); ?>" class="btn btn-primary">Edit</a>
+										<a href="<?= base_url('dashboard/delete/' . $user->id); ?>" class="btn btn-danger">Delete</a>
+									</td>
 								</tr>
 							<?php endforeach; ?>
 						</tbody>

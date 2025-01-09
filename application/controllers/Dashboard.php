@@ -67,6 +67,12 @@ class Dashboard extends CI_Controller
 			redirect('dashboard/edit/' . $id, 'refresh');
 		}
 	}
+
+	public function delete($id = null)
+	{
+		$this->User_model->deleteUser($id);
+		redirect('dashboard', 'refresh');
+	}
 }
 
 /* End of file: Dashboard.php */
