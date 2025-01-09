@@ -30,6 +30,7 @@
 					</div>
 
 					<button type="button" id="loginBtn" class="btn btn-primary mt-3 ">Login</button>
+					<div class="login-error"></div>
 				</form>
 
 			</div>
@@ -45,6 +46,9 @@
 	<script>
 		$(document).ready(function() {
 			$('#loginBtn').click(function() {
+				let msg = '';
+				$('.error-block').html('');
+				$('input').removeClass('is-invalid');
 				$.ajax({
 					url: '<?php echo base_url('login/proses_login'); ?>',
 					type: 'POST',
@@ -55,9 +59,20 @@
 					dataType: 'json',
 					success: function(response) {
 						if (response.status) {
-							alert(response.message);
+							//alert(response.message);
+							msg = 'email: ' + response.email + '<br>password: ' + response.password;
+							msg += '<br>status: ' + response.message;
+							$('.login-error').html(msg).addClass('alert alert-success');
+							$('#loginBtn').text('logout').addClass('btn-danger');
+
 						} else {
-							$('.error-block').html(response.message);
+							if (response.element) {
+								for (var i = 0; i < response.element.length; i++) {
+									$('#' + response.element[i]).addClass('is-invalid').next('.error-block').html(response.error[i]);
+								}
+
+							}
+
 						}
 					}
 				});
