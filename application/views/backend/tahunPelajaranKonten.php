@@ -124,4 +124,13 @@
 	$('.btnTambahTahunPelajaran').click(function() {
 		$('#modalTahunPelajaran').modal('show');
 	});
+	$('.saveBtn').click(function() {
+		// lakukan proses simpan data, lalu tutup modal , lalu reload tabel
+	})
+	$('.editBtn').click(function() {
+		// tampilkan data dalam modal 
+	})
+	$('.deleteBtn').click(function() {
+		// lakukan proses delete data, lalu reload tabel
+	})
 </script>

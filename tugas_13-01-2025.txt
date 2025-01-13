@@ -1,0 +1,12 @@
+#1. perbaiki fungsi login dan logout agar menuju halaman admin
+#2. buat fungsi CRUD Ajax untuk 'Tahun Pelajaran' , 'Kelas' dan 'Jurusan';
+	a. untuk menginput kelas user harus memilih tahun pelajaran dan jurusan yang tersedia;
+	b. untuk menginput jurusan user harus memilih tahun pelajaran yang tersedia;
+	c. validasi nama jurusan, dan nama kelas; 
+
+note:
+field sql kelas: id, id_tahun_pelajaran, id_jurusan, nama_kelas, created_at, updated_at, deleted_at
+field sql jurusan: id,id_tahun_pelajaran, nama_jurusan, created_at, updated_at, deleted_at
+push tugas ke github
+submit tugas ke google form https://forms.gle/dwxYtrjQvpuFbRw9A
+
