@@ -1,4 +1,4 @@
-#1 . ubahlah fungsi CRUD pada controller Dashboard menjadi CRUD yang menggunakan fungsi jquery ajax.
+#1. ubahlah fungsi CRUD pada controller Dashboard menjadi CRUD yang menggunakan fungsi jquery ajax.
 #2. tambahkan validasi, jika username sudah digunakan maka tidak bisa digunakan lagi.
 #3. perbaiki fungsi login.
 	a. ubah field email pada form login menjadi username.

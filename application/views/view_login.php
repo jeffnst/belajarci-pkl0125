@@ -19,8 +19,8 @@
 			<div class="card-body">
 				<form action="#" method="post" enctype="multipart/form-data">
 					<div class="mb-1">
-						<label for="email" class="form-label">Email</label>
-						<input type="email" class="form-control" id="email" name="email" value="">
+						<label for="username" class="form-label">Username</label>
+						<input type="email" class="form-control" id="username" name="username" value="">
 						<div class="error-block">.</div>
 					</div>
 					<div class="mb-1">
@@ -53,7 +53,7 @@
 					url: '<?php echo base_url('login/proses_login'); ?>',
 					type: 'POST',
 					data: {
-						email: $('#email').val(),
+						username: $('#username').val(),
 						password: $('#password').val()
 					},
 					dataType: 'json',
@@ -64,6 +64,8 @@
 							msg += '<br>status: ' + response.message;
 							$('.login-error').html(msg).addClass('alert alert-success');
 							$('#loginBtn').text('logout').addClass('btn-danger');
+
+							window.location.href = '<?php echo base_url('dashboard'); ?>';
 
 						} else {
 							if (response.element) {

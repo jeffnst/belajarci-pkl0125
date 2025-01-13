@@ -18,9 +18,15 @@ class User_model extends CI_Model
 		return $q;
 	}
 
-	public function getUserByID($id = null)
+	public function getUserByID($id)
 	{
 		$q = $this->db->where('id', $id)->get($this->table);
+		return $q;
+	}
+
+	public function getUserByUsername($username)
+	{
+		$q = $this->db->where('username', $username)->get($this->table);
 		return $q;
 	}
 
@@ -42,6 +48,13 @@ class User_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->delete($this->table);
 		return $this->db->affected_rows();
+	}
+
+	public function login($username, $password)
+	{
+
+		$q = $this->db->where('username', $username)->where('password', $password)->get($this->table);
+		return $q;
 	}
 	# code...
 

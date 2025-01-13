@@ -7,6 +7,7 @@ class Login extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('User_model');
 	}
 
 	public function index()
@@ -16,15 +17,16 @@ class Login extends CI_Controller
 
 	public function proses_login()
 	{
-		$email = $this->input->post('email');
+		$username = $this->input->post('username');
 		$password = $this->input->post('password');
+
 
 
 		$el = array();
 		$err = array();
-		if ($email == '') {
-			array_push($err, "email wajib diisi");
-			array_push($el, "email");
+		if ($username == '') {
+			array_push($err, "username wajib diisi");
+			array_push($el, "username");
 		}
 		if ($password == '') {
 			array_push($err, "password wajib diisi");
@@ -39,9 +41,18 @@ class Login extends CI_Controller
 				'message' => 'Login Gagal'
 			);
 		} else {
-			if ($email == 'admin' && $password == '12345') {
+			$q = $this->User_model->login($username, $password);
+			if ($q->num_rows() > 0) {
+
+				$sess = array(
+					'is_login' => TRUE,
+					'username' => $q->row()->username
+				);
+
+				$this->session->set_userdata($sess);
+
 				$ret = array(
-					'email' => $email,
+					'username' => $username,
 					'password' => $password,
 					'status' => true,
 					'message' => 'Login Berhasil'
@@ -51,7 +62,7 @@ class Login extends CI_Controller
 					'element' => '',
 					'error' => '',
 					'status' => false,
-					'message' => 'Login Gagal'
+					'message' => 'Username atau Password Salah'
 				);
 			}
 		}
