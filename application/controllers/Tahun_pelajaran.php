@@ -59,6 +59,7 @@ class Tahun_pelajaran extends CI_Controller
 			if ($cek->num_rows() > 0) {
 				$ret['status'] = false;
 				$ret['message'] = 'Tahun Pelajaran sudah ada';
+				$ret['query'] = $this->db->last_query();
 			} else {
 				if ($id) {
 					$q = $this->md->updateTahunPelajaran($id, $data);

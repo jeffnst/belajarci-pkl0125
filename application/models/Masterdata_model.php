@@ -84,6 +84,12 @@ class Masterdata_model extends CI_Model
 		return $this->db->get($this->tableJurusan);
 	}
 
+	public function getJurusanByTahunPelajaranID($id)
+	{
+		$this->db->where('id_tahun_pelajaran', $id);
+		return $this->db->get($this->tableJurusan);
+	}
+
 	public function cekJurusanDuplicate($nama_jurusan, $id_tahun_pelajaran, $id)
 	{
 		if ($id) {
@@ -122,22 +128,29 @@ class Masterdata_model extends CI_Model
 	}
 	public function getAllKelasNotDeleted()
 	{
-		$this->db->where('deleted_at', 0);
+		$this->db->select($this->tableKelas . '.*, ' . $this->tableTahunPelajaran . '.nama_tahun_pelajaran, ' . $this->tableJurusan . '.nama_jurusan');
+		$this->db->join($this->tableJurusan, $this->tableJurusan . '.id = ' . $this->tableKelas . '.id_jurusan');
+		$this->db->join($this->tableTahunPelajaran, $this->tableTahunPelajaran . '.id = ' . $this->tableJurusan . '.id_tahun_pelajaran');
+		$this->db->where($this->tableKelas . '.deleted_at', 0);
 		return $this->db->get($this->tableKelas);
 	}
 
 	public function getKelasByID($id)
 	{
-		$this->db->where('id', $id);
+		$this->db->select($this->tableKelas . '.*, ' . $this->tableTahunPelajaran . '.nama_tahun_pelajaran, ' . $this->tableJurusan . '.nama_jurusan, ' . $this->tableJurusan . '.id_tahun_pelajaran');
+		$this->db->join($this->tableJurusan, $this->tableJurusan . '.id = ' . $this->tableKelas . '.id_jurusan', 'left');
+		$this->db->join($this->tableTahunPelajaran, $this->tableTahunPelajaran . '.id = ' . $this->tableJurusan . '.id_tahun_pelajaran', 'left');
+		$this->db->where($this->tableKelas . '.deleted_at', 0);
+		$this->db->where($this->tableKelas . '.id', $id);
 		return $this->db->get($this->tableKelas);
 	}
 
-	public function cekKelasDuplicate($nama_kelas, $id_tahun_pelajaran, $id_jurusan)
+	public function cekKelasDuplicate($nama_kelas,  $id_jurusan, $id)
 	{
-		if ($id_tahun_pelajaran && $id_jurusan) {
-			$this->db->where('id_tahun_pelajaran !=', $id_tahun_pelajaran);
-			$this->db->where('id_jurusan !=', $id_jurusan);
+		if ($id) {
+			$this->db->where('id !=', $id);
 		}
+		$this->db->where('id_jurusan', $id_jurusan);
 		$this->db->where('nama_kelas', $nama_kelas);
 		return $this->db->get($this->tableKelas);
 	}
