@@ -51,7 +51,8 @@
 
 <li class="nav-item ">
 	<a href="#" class="nav-link ">
-		<i class="nav-icon fas fa-th "></i>
+
+		<i class="nav-icon far fa-file-alt"></i>
 		<p>
 			Pendaftaran
 			<i class="right fas fa-angle-left"></i>
@@ -82,7 +83,7 @@
 
 <li class="nav-item">
 	<a href="<?php echo base_url('laporan') ?>" class="nav-link">
-		<i class="nav-icon fas fa-users "></i>
+		<i class="nav-icon fas fa-chart-bar "></i>
 		<p>
 			Laporan
 		</p>
