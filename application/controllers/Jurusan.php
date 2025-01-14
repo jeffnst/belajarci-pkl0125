@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Tahun_pelajaran extends CI_Controller
+class Jurusan extends CI_Controller
 {
 
 	public function __construct()
@@ -12,19 +12,17 @@ class Tahun_pelajaran extends CI_Controller
 
 	public function index()
 	{
-
 		$data = array(
 			'menu' => 'backend/menu',
-			'content' => 'backend/tahunPelajaranKonten',
+			'content' => 'backend/jurusanKonten',
 			'title' => 'Admin'
 		);
 		$this->load->view('template', $data);
 	}
 
-	public function table_tahun_pelajaran()
+	public function table_jurusan()
 	{
-
-		$q = $this->md->getAllTahunPelajaranNotDeleted();
+		$q = $this->md->getAllJurusanNotDeleted();
 		$dt = [];
 		if ($q->num_rows() > 0) {
 			foreach ($q->result() as $row) {
@@ -39,29 +37,41 @@ class Tahun_pelajaran extends CI_Controller
 			$ret['data'] = [];
 			$ret['message'] = 'Data tidak tersedia';
 		}
-
 		echo json_encode($ret);
+	}
+
+	public function option_tahun_pelajaran()
+	{
+		$q = $this->md->getAllTahunPelajaranNotDeleted();
+		$ret = '';
+		if ($q->num_rows() > 0) {
+			foreach ($q->result() as $row) {
+				$ret .= '<option value="' . $row->id . '">' . $row->nama_tahun_pelajaran . '</option>';
+			}
+		}
+		echo $ret;
 	}
 
 	public function save()
 	{
+
 		$id = $this->input->post('id');
-		$data['nama_tahun_pelajaran'] = $this->input->post('nama_tahun_pelajaran');
-		$data['tanggal_mulai'] = $this->input->post('tanggal_mulai');
-		$data['tanggal_akhir'] = $this->input->post('tanggal_akhir');
-		$data['status_tahun_pelajaran'] = $this->input->post('status_tahun_pelajaran');
+		$id_tahun_pelajaran = $this->input->post('id_tahun_pelajaran');
+		$data['nama_jurusan'] = $this->input->post('nama_jurusan');
+		$data['id_tahun_pelajaran'] = $this->input->post('id_tahun_pelajaran');
 		$data['created_at'] = date('Y-m-d H:i:s');
 		$data['updated_at'] = date('Y-m-d H:i:s');
 		$data['deleted_at'] = 0;
 
-		if ($data['nama_tahun_pelajaran']) {
-			$cek = $this->md->cekTahunPelajaranDuplicate($data['nama_tahun_pelajaran'], $id);
+		if ($data['nama_jurusan']) {
+			$cek = $this->md->cekJurusanDuplicate($data['nama_jurusan'], $id_tahun_pelajaran, $id);
 			if ($cek->num_rows() > 0) {
 				$ret['status'] = false;
-				$ret['message'] = 'Tahun Pelajaran sudah ada';
+				$ret['message'] = 'Jurusan sudah ada';
 			} else {
+
 				if ($id) {
-					$q = $this->md->updateTahunPelajaran($id, $data);
+					$q = $this->md->updateJurusan($id, $data);
 					if ($q) {
 						$ret['status'] = true;
 						$ret['message'] = 'Data berhasil diupdate';
@@ -70,7 +80,7 @@ class Tahun_pelajaran extends CI_Controller
 						$ret['message'] = 'Data gagal diupdate';
 					}
 				} else {
-					$q = $this->md->saveTahunPelajaran($data);
+					$q = $this->md->saveJurusan($data);
 					if ($q) {
 						$ret['status'] = true;
 						$ret['message'] = 'Data berhasil disimpan';
@@ -82,18 +92,30 @@ class Tahun_pelajaran extends CI_Controller
 			}
 		} else {
 			$ret['status'] = false;
-			$ret['message'] = 'Tahun Pelajaran tidak boleh kosong';
+			$ret['message'] = 'Data gagal disimpan';
 		}
-
-
 		echo json_encode($ret);
 	}
 
+	public function delete()
+	{
+		$id = $this->input->post('id');
+		$data['deleted_at'] = time();
+		$q = $this->md->updateJurusan($id, $data);
+		if ($q) {
+			$ret['status'] = true;
+			$ret['message'] = 'Data berhasil dihapus';
+		} else {
+			$ret['status'] = false;
+			$ret['message'] = 'Data gagal dihapus';
+		}
+		echo json_encode($ret);
+	}
 	public function edit()
 	{
 
 		$id = $this->input->post('id');
-		$q = $this->md->getTahunPelajaranByID($id);
+		$q = $this->md->getJurusanByID($id);
 		if ($q->num_rows() > 0) {
 			$ret = array(
 				'status' => true,
@@ -111,21 +133,6 @@ class Tahun_pelajaran extends CI_Controller
 
 		echo json_encode($ret);
 	}
-
-	public function delete()
-	{
-		$id = $this->input->post('id');
-		$data['deleted_at'] = time();
-		$q = $this->md->updateTahunPelajaran($id, $data);
-		if ($q) {
-			$ret['status'] = true;
-			$ret['message'] = 'Data berhasil dihapus';
-		} else {
-			$ret['status'] = false;
-			$ret['message'] = 'Data gagal dihapus';
-		}
-		echo json_encode($ret);
-	}
 }
 
-/* End of file: Tahun_pelajaran.php */
+/* End of file: Jurusan.php */

@@ -33,13 +33,13 @@
 			<div class="modal-header">
 				<h5 class="modal-title">Tambah Tahun Pelajaran</h5>
 
-				<button type="button" class="close " data-bs-dismiss="modal" aria-label="Close">
+				<button type="button" class="close " data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-user">
-					<form action="#" method="post" enctype="multipart/form-data">
+					<form id="formTahunPelajaran" action="#" method="post" enctype="multipart/form-data">
 						<input type="hidden" class="form-control" id="id" name="id" value="">
 
 						<div class="mb-1">
@@ -77,7 +77,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary saveBtn">Simpan</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 			</div>
 		</div>
 	</div>
@@ -92,7 +92,7 @@
 
 	function tabelTahunPelajaran() {
 		let tabelTahunPelajaran = $('#tabelTahunPelajaran');
-		let tr = $('<tr>');
+		let tr = '';
 		$.ajax({
 			url: '<?php echo base_url('tahun_pelajaran/table_tahun_pelajaran'); ?>',
 			type: 'GET',
@@ -103,6 +103,7 @@
 					tabelTahunPelajaran.find('tbody').html('');
 					let no = 1;
 					$.each(response.data, function(i, item) {
+						tr = $('<tr>');
 
 						tr.append('<td>' + no++ + '</td>');
 						tr.append('<td>' + item.nama_tahun_pelajaran + '</td>');
@@ -114,6 +115,7 @@
 					});
 
 				} else {
+					tr = $('<tr>');
 					tabelTahunPelajaran.find('tbody').html('');
 					tr.append('<td colspan="4">' + response.message + '</td>');
 				}
@@ -122,15 +124,78 @@
 	}
 
 	$('.btnTambahTahunPelajaran').click(function() {
+		$('#id').val('');
+		$('#formTahunPelajaran').trigger('reset');
 		$('#modalTahunPelajaran').modal('show');
 	});
 	$('.saveBtn').click(function() {
 		// lakukan proses simpan data, lalu tutup modal , lalu reload tabel
+		$.ajax({
+			url: '<?php echo base_url('tahun_pelajaran/save'); ?>',
+			type: 'POST',
+			data: {
+				id: $('#id').val(),
+				nama_tahun_pelajaran: $('#nama_tahun_pelajaran').val(),
+				tanggal_mulai: $('#tanggal_mulai').val(),
+				tanggal_akhir: $('#tanggal_akhir').val(),
+				status_tahun_pelajaran: $('#status_tahun_pelajaran').val(),
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					alert(response.message);
+					$('#modalTahunPelajaran').modal('hide');
+					tabelTahunPelajaran();
+				} else {
+					alert(response.message);
+				}
+			}
+
+		})
 	})
-	$('.editBtn').click(function() {
+
+
+	function editTahunPelajaran(id) {
 		// tampilkan data dalam modal 
-	})
-	$('.deleteBtn').click(function() {
+		$.ajax({
+			url: '<?php echo base_url('tahun_pelajaran/edit'); ?>',
+			type: 'POST',
+			data: {
+				id: id,
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					$('#id').val(response.data.id);
+					$('#nama_tahun_pelajaran').val(response.data.nama_tahun_pelajaran);
+					$('#tanggal_mulai').val(response.data.tanggal_mulai);
+					$('#tanggal_akhir').val(response.data.tanggal_akhir);
+					$('#status_tahun_pelajaran').val(response.data.status_tahun_pelajaran);
+					$('#modalTahunPelajaran').modal('show');
+				} else {
+					alert(response.message);
+				}
+			}
+		})
+	};
+
+	function deleteTahunPelajarar(id) {
 		// lakukan proses delete data, lalu reload tabel
-	})
+		$.ajax({
+			url: '<?php echo base_url('tahun_pelajaran/delete'); ?>',
+			type: 'POST',
+			data: {
+				id: id,
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					alert(response.message);
+					tabelTahunPelajaran();
+				} else {
+					alert(response.message);
+				}
+			}
+		})
+	};
 </script>
