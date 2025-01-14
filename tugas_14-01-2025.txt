@@ -1,0 +1,7 @@
+#1. pada menu master_data tambahkan menu data_biaya yang berisi data jenis biaya dan harga untuk setiap kelas, misal; SPP kelas 10 RPL untuk tahun pelajaran 2025-2026 = Rp.300,000,-
+#2. pada menu master_data tambahkan menu data_seragam yang berisi data jenis, biaya  seragam yang akan didapatkan oleh siswa baru dan tambahkan juga table stok seragam pada halaman yang sama, gunakan Navtabs adminLte untuk memisahkan table jenis seragam dan table stok seragam
+
+
+note: 
+push tugas ke github
+submit tugas ke google form https://forms.gle/QtYGYSHrjehpEwLZ7
