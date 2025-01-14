@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Jan 2025 pada 13.27
+-- Waktu pembuatan: 14 Jan 2025 pada 14.33
 -- Versi server: 8.0.28
 -- Versi PHP: 7.4.33
 
@@ -43,7 +43,9 @@ CREATE TABLE `data_jurusan` (
 INSERT INTO `data_jurusan` (`id`, `id_tahun_pelajaran`, `nama_jurusan`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (4, 1, 'RPL', '2025-01-14 13:20:31', '2025-01-14 13:20:31', 0),
 (5, 1, 'TKJ', '2025-01-14 13:21:18', '2025-01-14 13:21:18', 0),
-(6, 2, 'RPL', '2025-01-14 13:21:42', '2025-01-14 13:21:42', 0);
+(6, 2, 'RPL', '2025-01-14 13:21:42', '2025-01-14 13:21:42', 0),
+(7, 2, 'TKJ', '2025-01-14 13:38:24', '2025-01-14 13:38:24', 0),
+(8, 1, 'DKV', '2025-01-14 13:50:49', '2025-01-14 13:50:49', 0);
 
 -- --------------------------------------------------------
 
@@ -56,9 +58,19 @@ CREATE TABLE `data_kelas` (
   `id_jurusan` int NOT NULL,
   `nama_kelas` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data untuk tabel `data_kelas`
+--
+
+INSERT INTO `data_kelas` (`id`, `id_jurusan`, `nama_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 4, '10 RPL', '2025-01-14 14:10:17', '2025-01-14 14:10:17', 0),
+(2, 4, '11 RPL', '2025-01-14 14:11:22', '2025-01-14 14:11:22', 0),
+(3, 6, '10 RPL', '2025-01-14 14:11:53', '2025-01-14 14:11:53', 0),
+(4, 7, '10 TKJ', '2025-01-14 14:31:28', '2025-01-14 14:31:28', 1736839958);
 
 -- --------------------------------------------------------
 
@@ -84,7 +96,8 @@ CREATE TABLE `data_tahun_pelajaran` (
 INSERT INTO `data_tahun_pelajaran` (`id`, `nama_tahun_pelajaran`, `tanggal_mulai`, `tanggal_akhir`, `status_tahun_pelajaran`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '2025-2026', '2025-01-01', '2026-01-01', '1', '2025-01-14 11:55:27', '2025-01-14 11:55:27', 0),
 (2, '2026-2027', '2025-01-15', '2025-01-15', '1', '0000-00-00 00:00:00', '2025-01-14 08:14:46', 0),
-(6, '2024-2025', '0000-00-00', '0000-00-00', '1', '2025-01-14 11:59:56', '2025-01-14 11:59:56', 1736830799);
+(7, '2024-2025', '2025-01-14', '2025-01-14', '1', '2025-01-14 13:37:13', '2025-01-14 13:37:13', 0),
+(8, '2026-2028', '0000-00-00', '0000-00-00', '1', '2025-01-14 13:37:36', '2025-01-14 13:37:36', 0);
 
 -- --------------------------------------------------------
 
@@ -147,19 +160,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `data_jurusan`
 --
 ALTER TABLE `data_jurusan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_kelas`
 --
 ALTER TABLE `data_kelas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_tahun_pelajaran`
 --
 ALTER TABLE `data_tahun_pelajaran`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
