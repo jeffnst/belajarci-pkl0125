@@ -1,0 +1,1 @@
+#1. buat sebuah file crud.js yang berfungsi untuk menghandle seluruh CRUD pada menu master data, sehingga pada setiap view master data tidak lagi ada skrip javascript. 
