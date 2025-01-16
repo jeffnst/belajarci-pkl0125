@@ -61,7 +61,7 @@
 	<!-- /.card -->
 </div>
 
-<div class="modal" id="modalJenisBiaya" tabindex=" -1" role="dialog">
+<div class="modal" id="modal_jenis_biaya" tabindex=" -1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -73,7 +73,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-user">
-					<form id="formJenisBiaya" action="#" method="post" enctype="multipart/form-data">
+					<form id="form_jenis_biaya" action="#" method="post" enctype="multipart/form-data">
 						<input type="hidden" class="form-control" id="id" name="id" value="">
 
 						<div class="mb-1">
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary saveBtn" id="saveJenisBiaya">Simpan</button>
+				<button type="button" class="btn btn-primary saveBtn" data-target="jenis_biaya" id="saveJenisBiaya">Simpan</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 			</div>
 		</div>
@@ -109,7 +109,7 @@
 </div>
 
 
-<div class="modal" id="modalHargaBiaya" tabindex=" -1" role="dialog">
+<div class="modal" id="modal_harga_biaya" tabindex=" -1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -121,7 +121,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-user">
-					<form id="formHargaBiaya" action="#" method="post" enctype="multipart/form-data">
+					<form id="form_harga_biaya" action="#" method="post" enctype="multipart/form-data">
 						<input type="hidden" class="form-control" id="id" name="id" value="">
 						<div class="mb-1">
 							<label for="tahun_pelajaran_id" class="form-label">Tahun Pelajaran</label>
@@ -157,12 +157,14 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary saveBtn" id="saveHargaBiaya">Simpan</button>
+				<button type="button" class="btn btn-primary saveBtn" data-target="harga_biaya" data-user="" id="saveHargaBiaya">Simpan</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 
 <script>
 	$(document).ready(function() {
@@ -174,7 +176,7 @@
 	});
 
 	$('.btnTambahJenisBiaya').on('click', function() {
-		$('#modalJenisBiaya').modal('show');
+		$('#modal_jenis_biaya').modal('show');
 	});
 
 	function tabelJenisBiaya() {
@@ -197,7 +199,7 @@
 						tr.append('<td>' + item.status_jenis_biaya + '</td>');
 
 
-						tr.append('<td>	<button class="btn btn-primary" onclick="editJenisBiaya(' + item.id + ')">Edit</button> <button class="btn btn-danger" onclick="deleteJenisBiaya(' + item.id + ')">Delete</button></td>');
+						tr.append('<td>	<button class="btn btn-primary" data-target="jenis_biaya" onclick="edit(' + item.id + ')">Edit</button> <button class="btn btn-danger" onclick="deleteJenisBiaya(' + item.id + ')">Delete</button></td>');
 						tabel.find('tbody').append(tr);
 					});
 
@@ -210,7 +212,34 @@
 		});
 	}
 
-	$('#saveJenisBiaya').on('click', function() {
+
+	$('.saveBtn').on('click', function() {
+		let base = '<?php echo base_url(); ?>';
+		var targetController = $(this).data('target');
+		var url = base + 'biaya/save_' + targetController;
+		var formData = new FormData($('#form_' + targetController)[0]);
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					alert(response.message);
+					$('#modal_' + targetController).modal('hide');
+					tabelHargaBiaya();
+					tabelJenisBiaya();
+
+				} else {
+					alert(response.message);
+				}
+			}
+		})
+	});
+
+	/* $('#saveJenisBiaya').on('click', function() {
 		var id = $('#id').val();
 
 		let url = '<?php echo base_url('biaya/save_jenis_biaya'); ?>';
@@ -232,7 +261,9 @@
 				}
 			}
 		})
-	});
+	}); */
+
+
 
 	function editJenisBiaya(id) {
 		// tampilkan data dalam modal 
@@ -257,7 +288,7 @@
 	}
 
 	$('.btnTambahHargaBiaya').on('click', function() {
-		$('#modalHargaBiaya').modal('show');
+		$('#modal_harga_biaya').modal('show');
 	});
 
 	function tabelHargaBiaya() {
@@ -293,7 +324,7 @@
 			}
 		});
 	}
-	$('#saveHargaBiaya').on('click', function() {
+	/* $('#saveHargaBiaya').on('click', function() {
 		var id = $('#id').val();
 		var tahun_pelajaran_id = $('#tahun_pelajaran_id').val();
 		var jenis_biaya_id = $('#jenis_biaya_id').val();
@@ -321,7 +352,7 @@
 				}
 			}
 		})
-	});
+	}); */
 
 	function editHargaBiaya(id) {
 		$.ajax({
