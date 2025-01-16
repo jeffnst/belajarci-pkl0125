@@ -7,6 +7,8 @@ class Masterdata_model extends CI_Model
 	protected $tableTahunPelajaran = 'data_tahun_pelajaran';
 	protected $tableKelas = 'data_kelas';
 	protected $tableJurusan = 'data_jurusan';
+	protected $tableJenisBiaya = 'data_jenis_biaya';
+	protected $tableHargaBiaya = 'data_harga_biaya';
 
 	public function __construct()
 	{
@@ -173,6 +175,56 @@ class Masterdata_model extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->delete($this->tableKelas);
 		return $this->db->affected_rows();
+	}
+
+	public function saveJenisBiaya($data)
+	{
+		$this->db->insert($this->tableJenisBiaya, $data);
+		return $this->db->insert_id();
+	}
+	public function updateJenisBiaya($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update($this->tableJenisBiaya, $data);
+		return $this->db->affected_rows();
+	}
+
+	public function deleteJenisBiaya($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete($this->tableJenisBiaya);
+		return $this->db->affected_rows();
+	}
+	public function getAllJenisBiaya()
+	{
+		return $this->db->get($this->tableJenisBiaya);
+	}
+	public function getJenisBiayaByID($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get($this->tableJenisBiaya);
+	}
+
+	public function getJenisBiayaAktif()
+	{
+		$this->db->where('deleted_at', 0);
+		$this->db->where('status_jenis_biaya', 1);
+		return $this->db->get($this->tableJenisBiaya);
+	}
+
+	public function getAllHargaBiaya()
+	{
+		$this->db->select($this->tableHargaBiaya . '.*, ' . $this->tableJenisBiaya . '.nama_jenis_biaya ,' . $this->tableTahunPelajaran . '.nama_tahun_pelajaran');
+		$this->db->join($this->tableJenisBiaya, $this->tableJenisBiaya . '.id = ' . $this->tableHargaBiaya . '.jenis_biaya_id', 'left');
+		$this->db->join($this->tableTahunPelajaran, $this->tableTahunPelajaran . '.id = ' . $this->tableHargaBiaya . '.tahun_pelajaran_id', 'left');
+		$this->db->where($this->tableHargaBiaya . '.deleted_at', 0);
+		return $this->db->get($this->tableHargaBiaya);
+	}
+
+	public function saveHargaBiaya($data)
+	{
+		$this->db->insert($this->tableHargaBiaya, $data);
+		return $this->db->insert_id();
 	}
 }
 
