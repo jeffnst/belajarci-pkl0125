@@ -176,6 +176,36 @@ class Biaya extends CI_Controller
 
 		echo json_encode($ret);
 	}
+
+	public function edit_harga_biaya()
+	{
+		$id = $this->input->post('id');
+		$q = $this->md->getHargaBiayaByID($id);
+		if ($q->num_rows() > 0) {
+			$ret['status'] = true;
+			$ret['data'] = $q->row();
+			$ret['message'] = '';
+		} else {
+			$ret['status'] = false;
+			$ret['data'] = [];
+			$ret['message'] = 'Data tidak tersedia';
+		}
+		echo json_encode($ret);
+	}
+	public function delete_harga_biaya()
+	{
+		$id = $this->input->post('id');
+		$data['deleted_at'] = time();
+		$q = $this->md->updateHargaBiaya($id, $data);
+		if ($q) {
+			$ret['status'] = true;
+			$ret['message'] = 'Data berhasil dihapus';
+		} else {
+			$ret['status'] = false;
+			$ret['message'] = 'Data gagal dihapus';
+		}
+		echo json_encode($ret);
+	}
 	public function getOptionJenisBiayaAktif()
 	{
 		$q = $this->md->getJenisBiayaAktif();

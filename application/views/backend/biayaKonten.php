@@ -212,18 +212,15 @@
 
 	$('#saveJenisBiaya').on('click', function() {
 		var id = $('#id').val();
-		var nama_jenis_biaya = $('#nama_jenis_biaya').val();
-		var status_jenis_biaya = $('#status_jenis_biaya').val();
-		let url = '<?php echo base_url('biaya/save_jenis_biaya'); ?>';
 
+		let url = '<?php echo base_url('biaya/save_jenis_biaya'); ?>';
+		var formData = new FormData($('#formJenisBiaya')[0]);
 		$.ajax({
 			url: url,
 			type: 'POST',
-			data: {
-				id: id,
-				nama_jenis_biaya: nama_jenis_biaya,
-				status_jenis_biaya: status_jenis_biaya
-			},
+			data: formData,
+			processData: false,
+			contentType: false,
 			dataType: 'json',
 			success: function(response) {
 				if (response.status) {
@@ -325,4 +322,45 @@
 			}
 		})
 	});
+
+	function editHargaBiaya(id) {
+		$.ajax({
+			url: '<?php echo base_url('biaya/edit_harga_biaya'); ?>',
+			type: 'post',
+			data: {
+				id: id,
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					$('#id').val(response.data.id);
+					$('#tahun_pelajaran_id').val(response.data.tahun_pelajaran_id);
+					$('#jenis_biaya_id').val(response.data.jenis_biaya_id);
+					$('#harga_biaya').val(response.data.harga_biaya);
+					$('#modalHargaBiaya').modal('show');
+				} else {
+					alert(response.message);
+				}
+			}
+		});
+	}
+
+	function deleteHargaBiaya(id) {
+		$.ajax({
+			url: '<?php echo base_url('biaya/delete_harga_biaya'); ?>',
+			type: 'POST',
+			data: {
+				id: id,
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response.status) {
+					alert(response.message);
+					tabelHargaBiaya();
+				} else {
+					alert(response.message);
+				}
+			}
+		})
+	}
 </script>

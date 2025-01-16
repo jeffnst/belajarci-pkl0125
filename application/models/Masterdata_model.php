@@ -221,10 +221,23 @@ class Masterdata_model extends CI_Model
 		return $this->db->get($this->tableHargaBiaya);
 	}
 
+	public function getHargaBiayaByID($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get($this->tableHargaBiaya);
+	}
+
 	public function saveHargaBiaya($data)
 	{
 		$this->db->insert($this->tableHargaBiaya, $data);
 		return $this->db->insert_id();
+	}
+
+	public function updateHargaBiaya($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update($this->tableHargaBiaya, $data);
+		return $this->db->affected_rows();
 	}
 }
 
