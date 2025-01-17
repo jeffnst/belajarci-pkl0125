@@ -164,7 +164,7 @@
 	</div>
 </div>
 
-
+<script src="<?php echo base_url('public/lib/crud.js'); ?>"></script>
 
 <script>
 	$(document).ready(function() {

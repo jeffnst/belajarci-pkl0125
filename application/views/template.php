@@ -22,7 +22,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" <?php echo $this->router->fetch_class(); ?> <?php echo $this->router->fetch_method(); ?>>
 	<div class="wrapper">
 
 		<!-- Navbar -->

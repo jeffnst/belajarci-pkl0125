@@ -9,6 +9,8 @@ class Masterdata_model extends CI_Model
 	protected $tableJurusan = 'data_jurusan';
 	protected $tableJenisBiaya = 'data_jenis_biaya';
 	protected $tableHargaBiaya = 'data_harga_biaya';
+	protected $tableJenisSeragam = 'jenis_seragam';
+	protected $tableDataStokSeragam = 'data_stok_seragam';
 
 	public function __construct()
 	{
@@ -237,6 +239,68 @@ class Masterdata_model extends CI_Model
 	{
 		$this->db->where('id', $id);
 		$this->db->update($this->tableHargaBiaya, $data);
+		return $this->db->affected_rows();
+	}
+
+	public function updateJenisSeragam($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update($this->tableJenisSeragam, $data);
+		return $this->db->affected_rows();
+	}
+	public function saveJenisSeragam($data)
+	{
+		$this->db->insert($this->tableJenisSeragam, $data);
+		return $this->db->insert_id();
+	}
+	public function getJenisSeragamByID($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get($this->tableJenisSeragam);
+	}
+	public function getAllJenisSeragam()
+	{
+		return $this->db->get($this->tableJenisSeragam);
+	}
+	public function getAllJenisSeragamNotDeleted()
+	{
+		$this->db->where('deleted_at', 0);
+		return $this->db->get($this->tableJenisSeragam);
+	}
+
+	public function getAllDataStokSeragam()
+	{
+		$this->db->select($this->tableDataStokSeragam . '.*, ' . $this->tableJenisSeragam . '.nama_jenis_seragam, ');
+		$this->db->join($this->tableJenisSeragam, $this->tableJenisSeragam . '.id = ' . $this->tableDataStokSeragam . '.jenis_seragam_id', 'left');
+		return $this->db->get($this->tableDataStokSeragam);
+	}
+	public function getAllDataStokSeragamNotDeleted()
+	{
+		$this->db->select($this->tableDataStokSeragam . '.*, ' . $this->tableJenisSeragam . '.nama_jenis_seragam, ');
+		$this->db->join($this->tableJenisSeragam, $this->tableJenisSeragam . '.id = ' . $this->tableDataStokSeragam . '.jenis_seragam_id', 'left');
+		$this->db->where($this->tableDataStokSeragam . '.deleted_at', 0);
+		return $this->db->get($this->tableDataStokSeragam);
+	}
+	public function getDataStokSeragamByID($id)
+	{
+		$this->db->where('id', $id);
+		return $this->db->get($this->tableDataStokSeragam);
+	}
+	public function saveDataStokSeragam($data)
+	{
+		$this->db->insert($this->tableDataStokSeragam, $data);
+		return $this->db->insert_id();
+	}
+	public function updateDataStokSeragam($id, $data)
+	{
+		$this->db->where('id', $id);
+		$this->db->update($this->tableDataStokSeragam, $data);
+		return $this->db->affected_rows();
+	}
+	public function deleteDataStokSeragam($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete($this->tableDataStokSeragam);
 		return $this->db->affected_rows();
 	}
 }
