@@ -1,0 +1,37 @@
+1 . buat fungsi crud untuk pendaftaran awal beserta validasi nya, dengan field sbb;
+a. Data Kelas;
+# - nomor pendaftaran (di generate otomatis berdasarkan tahun pelajaran dan jurusan) misal; 2526-RPL-0001
+# - tahun pelajaran
+# - jurusan
+# - kelas
+
+
+b. Data Siswa;
+# - nama
+# - nik
+# - agama
+# - NISN
+# - jenis kelamin
+# - tempat lahir
+# - tanggal lahir
+# - alamat
+# - no telepon
+# - email
+# - asal sekolah
+
+c. Data Orangtua;
+# - nama Ayah
+# - nama Ibu
+# - no telepon Ayah
+# - no telepon Ibu
+# - Pekerjaan Ayah
+# - Pekerjaan Ibu
+# - nama Wali
+# - no telepon Wali
+# - Pekerjaan Wali
+# - alamat;
+# - sumber informasi (website, sosmed, kerabat, spanduk, flyer, acara sekolah)
+
+NOTE
+push tugas beserta file .sql ke github
+submit tugas ke google form https://forms.gle/K1J4WPMFk5cRDnvc9

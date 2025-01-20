@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jan 2025 pada 15.56
+-- Waktu pembuatan: 20 Jan 2025 pada 11.18
 -- Versi server: 8.0.28
 -- Versi PHP: 7.4.33
 
@@ -196,7 +196,7 @@ CREATE TABLE `jenis_seragam` (
 
 INSERT INTO `jenis_seragam` (`id`, `nama_jenis_seragam`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Batiks', '2025-01-17 15:26:42', '2025-01-17 15:26:42', 1737102724),
-(2, 'Olahraga', '2025-01-17 15:26:25', '2025-01-17 15:26:25', 0),
+(2, 'Olahraga', '2025-01-17 23:22:50', '2025-01-17 23:22:50', 0),
 (3, 'Batik', '2025-01-17 15:32:12', '2025-01-17 15:32:12', 0);
 
 -- --------------------------------------------------------
