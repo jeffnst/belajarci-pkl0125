@@ -1,0 +1,4 @@
+#1. buatkan seluruh validasi  pada proses crud master data menggunakan library form_validation.
+note:
+push tugas beserta file .sql ke github
+submit tugas ke google form https://forms.gle/mVhvPESC2qjQZjD47
