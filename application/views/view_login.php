@@ -69,7 +69,7 @@
 
 						} else {
 							if (response.error) {
-								console.log('error1: ' + response.error[1]);
+								//console.log('error1: ' + response.error[1]);
 								for (var prop in response.error) {
 									if (response.error[prop] !== '') {
 

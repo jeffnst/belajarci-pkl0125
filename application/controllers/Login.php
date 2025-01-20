@@ -20,8 +20,8 @@ class Login extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-		$this->form_validation->set_rules('username', 'Username', 'trim|required', array('required' => 'Username harus diisi'));
-		$this->form_validation->set_rules('password', 'Password', 'trim|required', array('required' => 'Password harus diisi'));
+		$this->form_validation->set_rules('username', 'nama pengguna', 'trim|required', array('required' => '%s harus diisi'));
+		$this->form_validation->set_rules('password', 'kata sandi', 'trim|required', array('required' => '%s harus diisi'));
 
 		if ($this->form_validation->run() == FALSE) {
 			$ret['status'] = false;
