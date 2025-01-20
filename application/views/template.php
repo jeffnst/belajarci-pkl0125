@@ -18,11 +18,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<link rel="stylesheet" href="<?php echo base_url(); ?>public/template/css/adminlte.min.css">
 	<!-- jQuery -->
 	<script src="<?php echo base_url(); ?>public/template/plugins/jquery/jquery.min.js"></script>
-
+	<script>
+		var baseUrl = '<?php echo base_url(); ?>';
+		var currentClass = '<?php echo $this->router->fetch_class(); ?>';
+		var baseClass = baseUrl + currentClass;
+	</script>
 
 </head>
 
-<body class="hold-transition sidebar-mini" <?php echo $this->router->fetch_class(); ?> <?php echo $this->router->fetch_method(); ?>>
+<body class="hold-transition sidebar-mini">
 	<div class="wrapper">
 
 		<!-- Navbar -->

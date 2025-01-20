@@ -20,9 +20,44 @@ class Login extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
+		$this->form_validation->set_rules('username', 'Username', 'trim|required', array('required' => 'Username harus diisi'));
+		$this->form_validation->set_rules('password', 'Password', 'trim|required', array('required' => 'Password harus diisi'));
+
+		if ($this->form_validation->run() == FALSE) {
+			$ret['status'] = false;
+			foreach ($_POST as $key => $value) {
+				$ret['error'][$key] = form_error($key);
+			}
+		} else {
+			$q = $this->User_model->login($username, $password);
+			if ($q->num_rows() > 0) {
+
+				$sess = array(
+					'is_login' => TRUE,
+					'username' => $q->row()->username
+				);
+
+				$this->session->set_userdata($sess);
+
+				$ret = array(
+					'username' => $username,
+					'password' => $password,
+					'error' => '',
+					'status' => true,
+					'message' => 'Login Berhasil'
+				);
+			} else {
+				$ret = array(
+					'element' => '',
+					'error' => '',
+					'status' => false,
+					'message' => 'Username atau Password Salah'
+				);
+			}
+		}
 
 
-		$el = array();
+		/* $el = array();
 		$err = array();
 		if ($username == '') {
 			array_push($err, "username wajib diisi");
@@ -65,7 +100,7 @@ class Login extends CI_Controller
 					'message' => 'Username atau Password Salah'
 				);
 			}
-		}
+		} */
 
 
 		echo json_encode($ret);

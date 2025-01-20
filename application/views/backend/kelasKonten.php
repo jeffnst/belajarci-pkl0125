@@ -7,7 +7,7 @@
 			<div class="card-body">
 				<div class="btn btn-primary btnTambah mb-2"> <i class="fas fa-plus"></i> Tambah</div>
 				<div class="row">
-					<table class="table table-striped" id="tabel">
+					<table class="table table-striped" id="tabel" data-target="">
 						<thead>
 							<tr>
 								<th>No</th>
@@ -45,14 +45,14 @@
 
 						<div class="mb-1">
 							<label for="id_tahun_pelajaran" class="form-label">Nama Tahun Pelajaran</label>
-							<select class="form-control" name="id_tahun_pelajaran" id="id_tahun_pelajaran">
+							<select class="form-control dynamic-chained-select" name="id_tahun_pelajaran" id="id_tahun_pelajaran" data-parent="" data-target="#id_jurusan" data-url="tahun_pelajaran">
 								<option value="">- Pilih Tahun Pelajaran -</option>
 							</select>
 							<div class="error-block"></div>
 						</div>
 						<div class="mb-1">
 							<label for="id_jurusan" class="form-label">Nama Jurusan</label>
-							<select class="form-control" name="id_jurusan" id="id_jurusan">
+							<select class="form-control" name="id_jurusan" id="id_jurusan" data-parent="id_tahun_pelajaran" data-target="" data-url="jurusan">
 								<option value="">- Pilih Jurusan -</option>
 							</select>
 							<div class="error-block"></div>

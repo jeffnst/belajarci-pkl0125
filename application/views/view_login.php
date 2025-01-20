@@ -17,11 +17,11 @@
 				<div class="card-title fw-bold">Sign In</div>
 			</div>
 			<div class="card-body">
-				<form action="#" method="post" enctype="multipart/form-data">
+				<form id="form_login" action="#" method="post" enctype="multipart/form-data">
 					<div class="mb-1">
 						<label for="username" class="form-label">Username</label>
 						<input type="email" class="form-control" id="username" name="username" value="">
-						<div class="error-block">.</div>
+						<div class="error-block"></div>
 					</div>
 					<div class="mb-1">
 						<label for="password" class="form-label">Password</label>
@@ -49,13 +49,13 @@
 				let msg = '';
 				$('.error-block').html('');
 				$('input').removeClass('is-invalid');
+				let formdata = new FormData($("#form_login")[0])
 				$.ajax({
 					url: '<?php echo base_url('login/proses_login'); ?>',
 					type: 'POST',
-					data: {
-						username: $('#username').val(),
-						password: $('#password').val()
-					},
+					data: formdata,
+					processData: false,
+					contentType: false,
 					dataType: 'json',
 					success: function(response) {
 						if (response.status) {
@@ -68,11 +68,25 @@
 							window.location.href = '<?php echo base_url('dashboard'); ?>';
 
 						} else {
-							if (response.element) {
-								for (var i = 0; i < response.element.length; i++) {
-									$('#' + response.element[i]).addClass('is-invalid').next('.error-block').html(response.error[i]);
+							if (response.error) {
+								console.log('error1: ' + response.error[1]);
+								for (var prop in response.error) {
+									if (response.error[prop] !== '') {
+
+										$("#form_login [name= " + prop + "] ").addClass('is-invalid').next('div .error-block').html(response.error[prop]);
+									}
+
+
 								}
 
+								/* for (var i = 0; i < response.error.length; i++) {
+									console.log('error2:' + response.error);
+
+									$('#' + response.error[i]).addClass('is-invalid').next('.error-block').html(response.error[i]);
+								} */
+
+							} else {
+								console.log('error3: not found');
 							}
 
 						}
